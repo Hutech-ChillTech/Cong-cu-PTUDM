@@ -1,0 +1,253 @@
+.verificationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 20px;
+}
+
+.loadingText {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.errorBox {
+  background: white;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+}
+
+.errorIcon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.errorBox h3 {
+  color: #dc3545;
+  margin-bottom: 10px;
+}
+
+.errorBox p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.retryButton {
+  padding: 10px 30px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.retryButton:hover {
+  background: #0056b3;
+}
+
+.statusCard {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.statusHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.successIcon {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: #28a745;
+  color: white;
+  border-radius: 50%;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.successTitle {
+  color: #28a745;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+.pendingTitle {
+  color: #ffc107;
+  font-size: 1.75rem;
+  margin: 20px 0 0 0;
+}
+
+.failedIcon {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.failedTitle {
+  color: #dc3545;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+.paymentDetails {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #495057;
+}
+
+.detailValue {
+  color: #212529;
+  text-align: right;
+}
+
+.statusCOMPLETED {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.statusPENDING {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.statusFAILED {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.actionSection {
+  margin-bottom: 20px;
+}
+
+.successMessage,
+.pendingMessage,
+.failedMessage {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.successMessage {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.successMessage p {
+  color: #155724;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.pendingMessage {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+}
+
+.pendingMessage p {
+  color: #856404;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.failedMessage {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.failedMessage p {
+  color: #721c24;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.redirectMessage {
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.subMessage {
+  font-size: 0.875rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.primaryButton {
+  background: #007bff;
+  color: white;
+  margin-top: 10px;
+}
+
+.primaryButton:hover {
+  background: #0056b3;
+}
+
+.secondaryButton {
+  background: white;
+  color: #007bff;
+  border: 2px solid #007bff;
+  margin-top: 10px;
+}
+
+.secondaryButton:hover {
+  background: #e7f3ff;
+}
+
+.backButton {
+  width: 100%;
+  padding: 12px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.backButton:hover {
+  background: #5a6268;
+}
