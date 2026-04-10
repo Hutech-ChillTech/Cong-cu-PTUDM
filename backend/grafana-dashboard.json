@@ -1,0 +1,153 @@
+{
+  "dashboard": {
+    "title": "Hutech-Edu Monitoring Dashboard",
+    "tags": ["hutech-edu", "nodejs", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "HTTP Requests per Second",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(hutech_edu_http_requests_total[1m])",
+            "legendFormat": "{{method}} {{route}} - {{status_code}}"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+      },
+      {
+        "id": 2,
+        "title": "Average Response Time (ms)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(hutech_edu_http_request_duration_ms_sum[5m]) / rate(hutech_edu_http_request_duration_ms_count[5m])",
+            "legendFormat": "{{method}} {{route}}"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }
+      },
+      {
+        "id": 3,
+        "title": "Active Users",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "hutech_edu_active_users"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 8, "w": 6, "h": 4 }
+      },
+      {
+        "id": 4,
+        "title": "Active Sessions",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "hutech_edu_active_sessions"
+          }
+        ],
+        "gridPos": { "x": 6, "y": 8, "w": 6, "h": 4 }
+      },
+      {
+        "id": 5,
+        "title": "Cache Hit Rate (%)",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "hutech_edu_cache_hit_rate"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 8, "w": 6, "h": 4 }
+      },
+      {
+        "id": 6,
+        "title": "Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(hutech_edu_errors_total[5m])",
+            "legendFormat": "{{type}} - {{route}}"
+          }
+        ],
+        "gridPos": { "x": 18, "y": 8, "w": 6, "h": 4 }
+      },
+      {
+        "id": 7,
+        "title": "Total Payments",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(hutech_edu_payments_total)"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 12, "w": 6, "h": 4 }
+      },
+      {
+        "id": 8,
+        "title": "Payment Success Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(hutech_edu_payments_total{status=\"success\"}[5m]) / rate(hutech_edu_payments_total[5m]) * 100",
+            "legendFormat": "Success Rate %"
+          }
+        ],
+        "gridPos": { "x": 6, "y": 12, "w": 6, "h": 4 }
+      },
+      {
+        "id": 9,
+        "title": "Total Enrollments",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(hutech_edu_enrollments_total)"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 12, "w": 6, "h": 4 }
+      },
+      {
+        "id": 10,
+        "title": "Database Query Duration (ms)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(hutech_edu_database_query_duration_ms_sum[5m]) / rate(hutech_edu_database_query_duration_ms_count[5m])",
+            "legendFormat": "{{operation}} - {{model}}"
+          }
+        ],
+        "gridPos": { "x": 18, "y": 12, "w": 6, "h": 4 }
+      },
+      {
+        "id": 11,
+        "title": "Slowest API Endpoints (p95)",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(hutech_edu_http_request_duration_ms_bucket[5m]))",
+            "format": "table"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 }
+      },
+      {
+        "id": 12,
+        "title": "Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes / 1024 / 1024",
+            "legendFormat": "Memory (MB)"
+          }
+        ],
+        "gridPos": { "x": 12, "y": 16, "w": 12, "h": 8 }
+      }
+    ],
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    }
+  }
+}
