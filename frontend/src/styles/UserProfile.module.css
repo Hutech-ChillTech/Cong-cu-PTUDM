@@ -1,0 +1,346 @@
+/* ========== CONTAINER ========== */
+.profileContainer {
+  display: flex;
+  gap: 24px;
+  padding: 32px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.userCard {
+  text-align: center;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 32px 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.userCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.avatarWrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  border: 4px solid #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatarUploadButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 3px solid white;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.avatarUploadButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.6);
+}
+
+.username {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 12px 0 8px 0;
+}
+
+.role {
+  color: #718096;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttonGroup button {
+  border-radius: 8px;
+  font-weight: 600;
+  height: 42px;
+  transition: all 0.3s ease;
+}
+
+.buttonGroup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== MENU CARD ========== */
+.menuCard {
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.menuItem {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 14px 18px;
+  border-left: 4px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 8px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.menuItem:hover {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-left-color: #667eea;
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.menuItem.active {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-left-color: #3b82f6;
+  font-weight: 600;
+  color: #1e40af;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.icon {
+  font-size: 1.3rem;
+  color: #667eea;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+}
+
+.menuItem.active .icon {
+  color: #3b82f6;
+  transform: scale(1.1);
+}
+
+/* ========== MAIN CONTENT ========== */
+.content {
+  flex: 1;
+}
+
+.mainCard {
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.tabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabHeader h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.tabHeader button {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tabHeader button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+}
+
+/* ========== INFO LIST ========== */
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.infoList p {
+  font-size: 1rem;
+  color: #4a5568;
+  margin: 0;
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.infoList p strong {
+  color: #1a202c;
+  margin-right: 8px;
+}
+
+/* ========== COURSE CARDS ========== */
+.courseCard {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.courseCard .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseCard .ant-card-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseCard .ant-card-meta-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseCard .ant-card-actions {
+  background: #f7fafc;
+}
+
+.courseCard .ant-card-cover img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.courseCover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== EMPTY STATE ========== */
+.emptyText {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  padding: 48px 24px;
+  background: #f7fafc;
+  border-radius: 12px;
+  margin-top: 24px;
+}
+
+/* ========== LOADING CONTAINER ========== */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.loadingContainer p {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .profileContainer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .tabHeader {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .tabHeader div {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .tabHeader button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 16px;
+  }
+
+  .userCard {
+    padding: 24px 16px;
+  }
+
+  .username {
+    font-size: 1.25rem;
+  }
+
+  .tabHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .infoList p {
+    font-size: 0.95rem;
+  }
+}

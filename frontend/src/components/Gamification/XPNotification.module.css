@@ -1,0 +1,189 @@
+.notificationContainer {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.xpReward {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  animation: bounceIn 0.5s ease;
+  min-width: 180px;
+  max-width: 250px;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.xpAmount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+}
+
+.description {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.levelUpNotification {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(240, 147, 251, 0.3);
+  animation: levelUpAnimation 0.8s ease;
+  min-width: 180px;
+  max-width: 250px;
+}
+
+@keyframes levelUpAnimation {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.levelUpContent {
+  text-align: center;
+}
+
+.levelUpTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+}
+
+.levelUpText {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.achievementNotification {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  color: #2d3436;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(253, 203, 110, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: achievementAnimation 0.6s ease;
+  min-width: 200px;
+  max-width: 280px;
+}
+
+@keyframes achievementAnimation {
+  0% {
+    transform: translateY(-100%) scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.achievementIcon {
+  font-size: 2rem;
+  animation: rotateIcon 1s ease infinite;
+}
+
+@keyframes rotateIcon {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.achievementContent {
+  flex: 1;
+}
+
+.achievementTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem 0;
+}
+
+.achievementName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem 0;
+}
+
+.achievementXP {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .notificationContainer {
+    right: 10px;
+    left: 10px;
+    top: 70px;
+  }
+
+  .xpReward,
+  .levelUpNotification,
+  .achievementNotification {
+    padding: 1rem;
+  }
+
+  .achievementIcon {
+    font-size: 2rem;
+  }
+}
