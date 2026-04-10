@@ -1,0 +1,449 @@
+/* ========== CONTAINER ========== */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe;
+  padding: 32px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 70%
+  );
+  top: -200px;
+  right: -200px;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 70%
+  );
+  bottom: -150px;
+  left: -150px;
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #48bb78, #38a169, #2f855a);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== ICONS ========== */
+.iconSuccess,
+.iconFailed {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.iconSuccess {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  box-shadow: 0 12px 32px rgba(72, 187, 120, 0.4),
+    0 0 0 8px rgba(72, 187, 120, 0.1);
+}
+
+.iconSuccess::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(72, 187, 120, 0.2),
+    rgba(56, 161, 105, 0.2)
+  );
+  animation: pulse 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+.iconFailed {
+  background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+  color: white;
+  box-shadow: 0 12px 32px rgba(245, 101, 101, 0.4),
+    0 0 0 8px rgba(245, 101, 101, 0.1);
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.15) rotate(10deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* ========== TEXT ========== */
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.message {
+  font-size: 1.05rem;
+  color: #4a5568;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+/* ========== ORDER INFO ========== */
+.orderInfoContainer {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.detailCard {
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  border: 2px solid rgba(203, 213, 224, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.detailCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #48bb78, #38a169);
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  transition: all 0.2s ease;
+}
+
+.infoRow:hover {
+  background: rgba(255, 255, 255, 0.5);
+  margin: 0 -12px;
+  padding: 14px 12px;
+  border-radius: 8px;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoRow:first-child {
+  padding-top: 0;
+}
+
+.label {
+  color: #718096;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.label svg {
+  color: #0ea5e9;
+  font-size: 1.1rem;
+}
+
+.value {
+  color: #1a202c;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: right;
+  word-break: break-word;
+  max-width: 60%;
+}
+
+.valueHighlight {
+  color: #38a169;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-align: right;
+  text-shadow: 0 2px 8px rgba(56, 161, 105, 0.2);
+}
+
+.valueError {
+  color: #e53e3e;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: right;
+  word-break: break-word;
+  max-width: 60%;
+}
+
+/* ========== HELP SECTION ========== */
+.helpSection {
+  background: linear-gradient(135deg, #fef5e7 0%, #fef3c7 100%);
+  border: 2px solid rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.helpSection h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.helpSection ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #78350f;
+}
+
+.helpSection li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.helpSection li:last-child {
+  margin-bottom: 0;
+}
+
+/* ========== BUTTONS ========== */
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 16px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
+}
+
+.primaryButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.primaryButton:hover::before {
+  opacity: 1;
+}
+
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(14, 165, 233, 0.45);
+}
+
+.primaryButton:active {
+  transform: translateY(-1px);
+}
+
+.secondaryButton {
+  background: white;
+  color: #0ea5e9;
+  border: 2px solid #0ea5e9;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+}
+
+.secondaryButton:hover {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+}
+
+.secondaryButton:active {
+  transform: translateY(-1px);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .card {
+    padding: 36px 24px;
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .message {
+    font-size: 0.95rem;
+  }
+
+  .iconSuccess,
+  .iconFailed {
+    width: 80px;
+    height: 80px;
+    font-size: 2.8rem;
+  }
+
+  .detailCard {
+    padding: 20px 16px;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 0;
+  }
+
+  .infoRow:hover {
+    margin: 0 -8px;
+    padding: 12px 8px;
+  }
+
+  .value,
+  .valueHighlight,
+  .valueError {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .helpSection {
+    padding: 16px;
+  }
+
+  .helpSection h3 {
+    font-size: 0.95rem;
+  }
+
+  .helpSection li {
+    font-size: 0.85rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+}

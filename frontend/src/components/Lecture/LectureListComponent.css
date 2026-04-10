@@ -1,0 +1,29 @@
+/* Animation mượt mà khi mở rộng */
+.collapse-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-in-out;
+}
+
+.collapse-container.open {
+  max-height: 500px; /* đủ lớn để chứa nội dung — có thể tăng nếu cần */
+}
+
+/* Mũi tên xoay mượt */
+.transition-arrow {
+  transition: transform 0.3s ease;
+}
+
+.transition-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+/* Tăng khoảng cách giữa các chương */
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+/* Tùy chọn: hover hiệu ứng header chương */
+.d-flex:hover {
+  background-color: #e9ecef;
+}
