@@ -16,6 +16,7 @@ import {
   Radio,
   Tooltip,
 } from "antd";
+const { Dragger } = Upload;
 import type { TabsProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
@@ -161,6 +162,117 @@ const LessonList: React.FC = () => {
     ],
   });
 
+  const addQuestion = useCallback(() => {
+    const newQuestion: QuizQuestion = {
+      id: Date.now().toString(),
+      question: "Câu hỏi không có tiêu đề",
+      options: ["Tùy chọn 1"],
+      correctAnswer: null,
+      required: false,
+    };
+    setQuizData((prev) => ({
+      ...prev,
+      questions: [...prev.questions, newQuestion],
+    }));
+  }, []);
+
+  const updateQuestion = useCallback((
+    questionId: string,
+    field: keyof QuizQuestion,
+    value: string | number | boolean | string[] | null,
+  ) => {
+    setQuizData((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) =>
+        q.id === questionId ? { ...q, [field]: value } : q,
+      ),
+    }));
+  }, []);
+
+  const deleteQuestion = useCallback((questionId: string) => {
+    setQuizData((prev) => {
+      if (prev.questions.length > 1) {
+        return {
+          ...prev,
+          questions: prev.questions.filter((q) => q.id !== questionId),
+        };
+      }
+      return prev;
+    });
+  }, []);
+
+  const duplicateQuestion = useCallback((questionId: string) => {
+    setQuizData((prev) => {
+      const questionToDuplicate = prev.questions.find(
+        (q) => q.id === questionId,
+      );
+      if (questionToDuplicate) {
+        const newQuestion = {
+          ...questionToDuplicate,
+          id: Date.now().toString(),
+        };
+        const index = prev.questions.findIndex((q) => q.id === questionId);
+        const newQuestions = [...prev.questions];
+        newQuestions.splice(index + 1, 0, newQuestion);
+        return {
+          ...prev,
+          questions: newQuestions,
+        };
+      }
+      return prev;
+    });
+  }, []);
+
+  const addOption = useCallback((questionId: string) => {
+    setQuizData((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.id === questionId) {
+          return {
+            ...q,
+            options: [...q.options, `Tùy chọn ${q.options.length + 1}`],
+          };
+        }
+        return q;
+      }),
+    }));
+  }, []);
+
+  const updateOption = useCallback((
+    questionId: string,
+    optionIndex: number,
+    value: string,
+  ) => {
+    setQuizData((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.id === questionId) {
+          const newOptions = [...q.options];
+          newOptions[optionIndex] = value;
+          return { ...q, options: newOptions };
+        }
+        return q;
+      }),
+    }));
+  }, []);
+
+  const deleteOption = useCallback((questionId: string, optionIndex: number) => {
+    setQuizData((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.id === questionId && q.options.length > 1) {
+          return {
+            ...q,
+            options: q.options.filter((_, i) => i !== optionIndex),
+            correctAnswer:
+              q.correctAnswer === optionIndex ? null : q.correctAnswer,
+          };
+        }
+        return q;
+      }),
+    }));
+  }, []);
+
   const chapterName = location.state?.chapterName || "Chương học";
 
   const beforeUpload = (file: File) => {
@@ -204,113 +316,7 @@ const LessonList: React.FC = () => {
     }
   }, [chapterId, fetchLessons, fetchQuizzes]);
 
-  // Quiz functions
-  const addQuestion = () => {
-    const newQuestion: QuizQuestion = {
-      id: Date.now().toString(),
-      question: "Câu hỏi không có tiêu đề",
-      options: ["Tùy chọn 1"],
-      correctAnswer: null,
-      required: false,
-    };
-    setQuizData({
-      ...quizData,
-      questions: [...quizData.questions, newQuestion],
-    });
-  };
-
-  const updateQuestion = (
-    questionId: string,
-    field: keyof QuizQuestion,
-    value: string | number | boolean | string[] | null,
-  ) => {
-    setQuizData({
-      ...quizData,
-      questions: quizData.questions.map((q) =>
-        q.id === questionId ? { ...q, [field]: value } : q,
-      ),
-    });
-  };
-
-  const deleteQuestion = (questionId: string) => {
-    if (quizData.questions.length > 1) {
-      setQuizData({
-        ...quizData,
-        questions: quizData.questions.filter((q) => q.id !== questionId),
-      });
-    }
-  };
-
-  const duplicateQuestion = (questionId: string) => {
-    const questionToDuplicate = quizData.questions.find(
-      (q) => q.id === questionId,
-    );
-    if (questionToDuplicate) {
-      const newQuestion = {
-        ...questionToDuplicate,
-        id: Date.now().toString(),
-      };
-      const index = quizData.questions.findIndex((q) => q.id === questionId);
-      const newQuestions = [...quizData.questions];
-      newQuestions.splice(index + 1, 0, newQuestion);
-      setQuizData({
-        ...quizData,
-        questions: newQuestions,
-      });
-    }
-  };
-
-  const addOption = (questionId: string) => {
-    setQuizData({
-      ...quizData,
-      questions: quizData.questions.map((q) => {
-        if (q.id === questionId) {
-          return {
-            ...q,
-            options: [...q.options, `Tùy chọn ${q.options.length + 1}`],
-          };
-        }
-        return q;
-      }),
-    });
-  };
-
-  const updateOption = (
-    questionId: string,
-    optionIndex: number,
-    value: string,
-  ) => {
-    setQuizData({
-      ...quizData,
-      questions: quizData.questions.map((q) => {
-        if (q.id === questionId) {
-          const newOptions = [...q.options];
-          newOptions[optionIndex] = value;
-          return { ...q, options: newOptions };
-        }
-        return q;
-      }),
-    });
-  };
-
-  const deleteOption = (questionId: string, optionIndex: number) => {
-    setQuizData({
-      ...quizData,
-      questions: quizData.questions.map((q) => {
-        if (q.id === questionId && q.options.length > 1) {
-          return {
-            ...q,
-            options: q.options.filter((_, i) => i !== optionIndex),
-            correctAnswer:
-              q.correctAnswer === optionIndex ? null : q.correctAnswer,
-          };
-        }
-        return q;
-      }),
-    });
-  };
-
-  const handleEdit = async (
+  const handleEdit = useCallback(async (
     record:
       | Lesson
       | {
@@ -395,9 +401,9 @@ const LessonList: React.FC = () => {
     }
 
     setShowForm(true);
-  };
+  }, [form]);
 
-  const handleDelete = async (id: string, type: LessonType) => {
+  const handleDelete = useCallback(async (id: string, type: LessonType) => {
     try {
       if (type === "quiz") {
         await quizService.deleteQuiz(id);
@@ -411,7 +417,7 @@ const LessonList: React.FC = () => {
     } catch {
       message.error("Xóa thất bại");
     }
-  };
+  }, [fetchLessons, fetchQuizzes]);
 
   // Combine lessons and quizzes for display
   const combinedData = useMemo(() => {
@@ -487,7 +493,7 @@ const LessonList: React.FC = () => {
         ),
       },
     ],
-    [],
+    [handleDelete, handleEdit],
   );
 
   const renderFormFields = useCallback(() => {
@@ -515,20 +521,49 @@ const LessonList: React.FC = () => {
           </Form.Item>
 
           {!hasTestCase && (
-            <Form.Item
-              label="Upload video"
-              name="videoFile"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <Upload
-                beforeUpload={beforeUpload}
-                maxCount={1}
-                listType="picture"
+            <>
+              {editingId && form.getFieldValue("videoUrl") && (
+                <div style={{ marginBottom: 16, padding: "8px 12px", background: "#e6f7ff", border: "1px solid #91d5ff", borderRadius: 4 }}>
+                  <Typography.Text type="secondary">Video hiện tại: </Typography.Text>
+                  <Typography.Link href={form.getFieldValue("videoUrl")} target="_blank">
+                    {form.getFieldValue("videoUrl")}
+                  </Typography.Link>
+                  <br />
+                  <Typography.Text style={{ fontSize: 12, fontStyle: "italic", color: "#888" }}>
+                    (Nếu không chọn video mới, hệ thống sẽ giữ nguyên video cũ)
+                  </Typography.Text>
+                </div>
+              )}
+              <Form.Item
+                label={editingId ? "Thay đổi video bài học (Tùy chọn)" : "Upload video bài học"}
+                name="videoFile"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                extra="Kéo thả hoặc click để chọn file video mới (MP4, MOV, AVI...)"
               >
-                <Button icon={<UploadOutlined />}>Chọn file video</Button>
-              </Upload>
-            </Form.Item>
+                <Dragger
+                  beforeUpload={beforeUpload}
+                  maxCount={1}
+                  accept="video/*"
+                  style={{
+                    padding: "20px",
+                    background: "#fafafa",
+                    border: "2px dashed #d9d9d9",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <p className="ant-upload-drag-icon">
+                    <UploadOutlined style={{ color: "#3a49b7" }} />
+                  </p>
+                  <p className="ant-upload-text" style={{ fontWeight: 500 }}>
+                    Kéo thả video vào đây hoặc Click để chọn file
+                  </p>
+                  <p className="ant-upload-hint">
+                    Hỗ trợ tải lên video dung lượng lớn (Tối đa 5GB).
+                  </p>
+                </Dragger>
+              </Form.Item>
+            </>
           )}
         </>
       );
@@ -944,65 +979,87 @@ const LessonList: React.FC = () => {
 
           if (!hasTestCase) {
             const fileList = values.videoFile as { originFileObj?: File }[];
+            console.log("--- FRONTEND UPLOAD DEBUG ---");
+            console.log("fileList:", fileList);
 
-            // ✅ Kiểm tra bắt buộc có video
-            if (!fileList || fileList.length === 0) {
+            // Nếu không có file mới && đang ở chế độ Edit -> Giữ nguyên video cũ
+            if ((!fileList || fileList.length === 0) && editingId) {
+              // Không làm gì cả, videoUrl sẽ không được gửi lên hoặc giữ nguyên
+            }
+            // Nếu không có file mới && đang tạo mới -> Báo lỗi
+            else if (!fileList || fileList.length === 0) {
               message.error("Vui lòng chọn video để upload!");
               setIsSubmitting(false);
               return;
             }
+            // Nếu có file mới -> Tiến hành upload
+            else {
+              const fileObj = fileList[0];
+              const actualFile = fileObj?.originFileObj || (fileObj instanceof File ? fileObj : null);
 
-            const fileObj = fileList[0];
-            if (!fileObj.originFileObj) {
-              message.error("File video không hợp lệ!");
-              setIsSubmitting(false);
-              return;
-            }
+              console.log("actualFile:", actualFile);
 
-            try {
-              message.loading({
-                content: "Đang upload video lên Cloud... Vui lòng đợi!",
-                key: "uplo",
-                duration: 0,
-              });
+              if (!actualFile) {
+                message.error("File video không hợp lệ!");
+                setIsSubmitting(false);
+                return;
+              }
 
-              const cloudData = await uploadService.uploadVideo(
-                fileObj.originFileObj,
-              );
+              try {
+                message.loading({
+                  content: "Đang chuẩn bị upload video... Vui lòng không đóng trình duyệt!",
+                  key: "uplo",
+                  duration: 0,
+                });
 
-              // ✅ Sử dụng đúng tên field từ uploadService (url, publicId)
-              const { url, publicId } = cloudData;
+                const youtubeData = await uploadService.uploadVideoToYouTube(
+                  actualFile,
+                  (percent) => {
+                    message.loading({
+                      content: `Đang upload video lên YouTube: ${percent}%... Vui lòng chờ!`,
+                      key: "uplo",
+                      duration: 0,
+                    });
+                  }
+                );
 
-              lessonData.videoUrl = url;
-              lessonData.publicId = publicId;
+                lessonData.videoUrl = youtubeData.url;
 
-              message.success({
-                content: "Upload video thành công!",
-                key: "uplo",
-              });
-            } catch (uErr) {
-              console.error(uErr);
-              message.error({
-                content: "Upload video thất bại! Vui lòng thử lại.",
-                key: "uplo",
-              });
-              setIsSubmitting(false);
-              return;
+                message.success({
+                  content: "Upload video lên YouTube thành công! Video sẽ hiển thị sau khi YouTube xử lý xong (5-10p).",
+                  key: "uplo",
+                  duration: 5,
+                });
+              } catch (uErr) {
+                console.error(uErr);
+                message.error({
+                  content: "Upload video lên YouTube thất bại! Vui lòng kiểm tra lại cấu hình API hoặc dung lượng mạng.",
+                  key: "uplo",
+                });
+                setIsSubmitting(false);
+                return;
+              }
             }
           }
         }
 
-        const createdLesson = await lessonService.createLesson(lessonData);
-        if (!createdLesson) throw new Error("Không tạo được bài học");
-
-        newLessonId =
-          (createdLesson as Record<string, string>).lessonId ||
-          (createdLesson as Record<string, string>).id;
+        if (editingId) {
+          // UPDATE LESSON
+          await lessonService.updateLesson(editingId, lessonData);
+          newLessonId = editingId;
+        } else {
+          // CREATE LESSON
+          const createdLesson = await lessonService.createLesson(lessonData);
+          if (!createdLesson) throw new Error("Không tạo được bài học");
+          newLessonId =
+            (createdLesson as Record<string, string>).lessonId ||
+            (createdLesson as Record<string, string>).id;
+        }
 
         // Nếu có Test Case, chuyển tab để nhập tiếp
         if (activeTab === "normal" && hasTestCase) {
           message.success(
-            "Đã lưu bài học video. Vui lòng nhập thông tin Test Case.",
+            editingId ? "Đã cập nhật bài học. Nhập Test Case mới nếu cần." : "Đã lưu bài học video. Vui lòng nhập thông tin Test Case."
           );
           setTempLessonId(newLessonId);
           setActiveTab("testcode");
@@ -1047,9 +1104,13 @@ const LessonList: React.FC = () => {
       setEditingId(null);
       setEditingType(null);
       fetchLessons();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
-      message.error("Có lỗi xảy ra khi lưu bài học");
+      const errorMsg =
+        error instanceof Error
+          ? error.message
+          : "Có lỗi xảy ra khi lưu bài học";
+      message.error(errorMsg);
     } finally {
       setIsSubmitting(false);
     }

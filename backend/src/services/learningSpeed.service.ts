@@ -249,9 +249,9 @@ export class LearningSpeedService {
       },
     });
 
-    if (!userSpeed || !userSpeed.learningSpeed) {
-      throw new Error("Learning speed not calculated yet");
-    }
+    // Nếu chưa có dữ liệu tốc độ học, mặc định coi là Normal để không bị crash 500
+    const speedScore = userSpeed?.speedScore || 1.0;
+    const learningSpeed = userSpeed?.learningSpeed || LearningSpeed.Normal;
 
     // 3. Xác định vị trí hiện tại (1-9)
     const currentPosition = this.getSubLevelPosition(
@@ -263,11 +263,11 @@ export class LearningSpeedService {
     let recommendedPosition: number;
     let reason: string;
 
-    switch (userSpeed.learningSpeed) {
+    switch (learningSpeed) {
       case LearningSpeed.Fast:
         // +2 cấp
         recommendedPosition = currentPosition + 2;
-        reason = `Bạn học nhanh (điểm ${userSpeed.speedScore?.toFixed(
+        reason = `Bạn học nhanh (điểm ${speedScore.toFixed(
           2
         )})! Gợi ý khóa học khó hơn 2 cấp`;
         break;
@@ -275,7 +275,7 @@ export class LearningSpeedService {
       case LearningSpeed.Normal:
         // Cùng cấp
         recommendedPosition = currentPosition;
-        reason = `Bạn học ổn định (điểm ${userSpeed.speedScore?.toFixed(
+        reason = `Bạn học ổn định (điểm ${speedScore.toFixed(
           2
         )}). Gợi ý khóa học cùng cấp độ`;
         break;
@@ -283,7 +283,7 @@ export class LearningSpeedService {
       case LearningSpeed.Slow:
         // -1 cấp
         recommendedPosition = currentPosition - 1;
-        reason = `Bạn cần thêm thời gian (điểm ${userSpeed.speedScore?.toFixed(
+        reason = `Bạn cần thêm thời gian (điểm ${speedScore.toFixed(
           2
         )}). Gợi ý khóa học dễ hơn 1 cấp`;
         break;
@@ -382,7 +382,7 @@ export class LearningSpeedService {
             userId,
             recommendedCourseId: course.courseId,
             reason: createDetailedReason(course),
-            score: userSpeed.speedScore || 0,
+            score: speedScore || 0,
           },
         })
       )
@@ -399,8 +399,8 @@ export class LearningSpeedService {
         subLevel: recommendedLevel.subLevel,
         position: recommendedLevel.position,
       },
-      learningSpeed: userSpeed.learningSpeed,
-      speedScore: userSpeed.speedScore,
+      learningSpeed: learningSpeed,
+      speedScore: speedScore,
       reason,
       matchCriteria: {
         userSpecialization: user?.specialization || null,

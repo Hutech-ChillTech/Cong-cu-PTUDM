@@ -8,6 +8,7 @@ import {
 import { sendSuccess, sendNotFound } from "../utils/responseHelper";
 import createHttpError from "http-errors";
 import cloudinary from "../configs/cloudinary";
+import YouTubeService from "../services/youtube.service";
 
 class MediaController {
   private readonly userService: UserService;
@@ -88,6 +89,49 @@ class MediaController {
       );
     } catch (error) {
       console.error("Error generating Cloudinary signature:", error);
+      return next(error);
+    }
+  }
+
+  /**
+   * Admin upload video trực tiếp lên YouTube (Resumable Upload)
+   * POST /api/uploads/video-youtube
+   */
+  async uploadVideoToYouTube(req: Request, res: Response, next: NextFunction) {
+    try {
+      console.log("--- DEBUG UPLOAD ---");
+      console.log("File:", req.file);
+      console.log("Body:", req.body);
+      console.log("Headers:", req.headers["content-type"]);
+
+      const file = req.file;
+      const { title, description } = req.body;
+
+      if (!file) {
+        return res.status(400).json({
+          success: false,
+          message: "Không tìm thấy file video để upload. Kiểm tra field name (phải là 'video').",
+          debug: {
+            hasBody: !!req.body,
+            contentType: req.headers["content-type"]
+          }
+        });
+      }
+
+      // file.path tồn tại vì chúng ta dùng diskStorage trong middleware cho video
+      const result = await YouTubeService.uploadVideo(
+        title || file.originalname,
+        description || "Video được upload từ hệ thống LMS",
+        file.path
+      );
+
+      return sendSuccess(
+        res,
+        result,
+        "Đã upload video lên YouTube thành công (Chế độ Không công khai)"
+      );
+    } catch (error) {
+      console.error("Error uploading to YouTube:", error);
       return next(error);
     }
   }

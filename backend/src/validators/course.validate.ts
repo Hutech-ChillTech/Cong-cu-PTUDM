@@ -20,7 +20,7 @@ export const createCourseSchema = Joi.object({
     "number.min": "Giảm giá không được âm",
     "number.max": "Giảm giá không được vượt quá 1 (100%)",
   }),
-  avatarURL: Joi.string().optional().uri().messages({
+  avatarURL: Joi.string().optional().allow("").uri().messages({
     "string.uri": "Avatar URL phải là một URL hợp lệ",
   }),
   level: Joi.string()

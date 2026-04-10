@@ -5,7 +5,7 @@ import MediaController from "../controllers/media.controller";
 import UserRepository from "../repositories/user.repository";
 import LessonRepository from "../repositories/lesson.repository";
 import Prisma from "../configs/prismaClient";
-import { uploadImage } from "../middlewares/upload.middleware";
+import { uploadImage, uploadVideo } from "../middlewares/upload.middleware";
 import { authenticate } from "../middlewares/auth.middleware";
 
 const userRepository = new UserRepository(Prisma, "userId");
@@ -22,6 +22,14 @@ router.post(
   authenticate,
   uploadImage.single("avatar"),
   (req, res, next) => mediaController.uploadUserAvatar(req, res, next)
+);
+
+// Upload video lên YouTube (Dành cho Admin)
+router.post(
+  "/video-youtube",
+  authenticate,
+  uploadVideo.single("video"),
+  (req, res, next) => mediaController.uploadVideoToYouTube(req, res, next)
 );
 
 // Get Cloudinary signature for client-side upload

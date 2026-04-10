@@ -392,19 +392,36 @@ class LessonProgressService {
         throw createHttpError(404, "Không tìm thấy bài học");
       }
 
-      // Nếu lesson là preview, cho phép access mà không cần enrollment
-      if (!lesson.isPreview) {
-        // Kiểm tra enrollment chỉ khi lesson không phải preview
-        const enrollment = await prisma.enrollment.findUnique({
-          where: {
-            userId_courseId: {
-              userId,
-              courseId: lesson.chapter.courseId,
-            },
-          },
+      const courseId = lesson.chapter.courseId;
+
+      // 1. Kiểm tra enrollment hiện tại
+      let enrollment = await prisma.enrollment.findUnique({
+        where: {
+          userId_courseId: { userId, courseId },
+        },
+      });
+
+      // 2. Logic tự động đăng ký cho khóa học 0đ
+      if (!enrollment) {
+        // Lấy giá khóa học
+        const course = await prisma.course.findUnique({
+          where: { courseId },
+          select: { coursePrice: true },
         });
 
-        if (!enrollment) {
+        if (course && course.coursePrice === 0) {
+          // Tự động đăng ký khóa học 0đ ngay khi nhấn vào bài học
+          enrollment = await prisma.enrollment.create({
+            data: {
+              userId,
+              courseId,
+              firstAccessAt: new Date(),
+              isCurrentlyActive: true,
+            },
+          });
+          console.log(`🎁 Tự động đăng ký khóa học miễn phí (0đ) cho User: ${userId}, Course: ${courseId}`);
+        } else if (!lesson.isPreview) {
+          // Nếu không phải khóa học 0đ và không phải bài học xem trước (Preview)
           throw createHttpError(403, "Bạn chưa đăng ký khóa học này");
         }
       }

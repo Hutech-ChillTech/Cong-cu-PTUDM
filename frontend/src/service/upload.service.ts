@@ -208,4 +208,48 @@ export const uploadService = {
       throw error;
     }
   },
+
+  /**
+   * Upload video dung lượng lớn lên YouTube (Băm nhỏ tự động ở Backend)
+   * @param file - File video cần upload
+   * @param onProgress - Callback để track progress (0-100)
+   * @returns {videoId, url}
+   */
+  uploadVideoToYouTube: async (
+    file: File,
+    onProgress?: (percent: number) => void
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("video", file);
+
+      // Lưu ý: Backend xử lý băm nhỏ (Resumable Upload) nên ở FE chỉ cần gửi FormData thông thường
+      const response = await axios.post(
+        `${API_URL}/uploads/video-youtube`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          // Track progress gửi từ Client lên Server
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.total) {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              if (onProgress) {
+                onProgress(percentCompleted);
+              }
+              console.log(`📤 Client to Server: ${percentCompleted}%`);
+            }
+          },
+        }
+      );
+
+      return response.data.data; // { videoId, url }
+    } catch (error) {
+      console.error("❌ Lỗi upload video lên YouTube:", error);
+      throw error;
+    }
+  },
 };
