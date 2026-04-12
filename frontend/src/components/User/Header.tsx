@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import styles from "../../styles/UserHeader.module.css";
 import { jwtDecode } from "jwt-decode";
@@ -87,54 +87,78 @@ const UserHeader: React.FC = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/">
+              <NavLink
+                end
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
+                to="/"
+              >
                 Trang chủ
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
                 to="/all-courses"
               >
                 Khóa học
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
                 to="/learningPathMap"
               >
                 Lộ trình
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/blogs">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
+                to="/blogs"
+              >
                 Blog
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/contact">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
+                to="/contact"
+              >
                 Liên hệ
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
                 to="/gamification"
               >
                 Bảng xếp hạng
-              </Link>
+              </NavLink>
             </li>
-            
+
             {/* Search Icon */}
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${styles["nav-link"]} ${isActive ? styles["active-link"] : ""}`
+                }
                 to="/search"
                 title="Tìm kiếm"
               >
                 <SearchOutlined style={{ fontSize: 18 }} />
-              </Link>
+              </NavLink>
             </li>
 
             {/* Nếu chưa đăng nhập → Hiển thị nút Đăng nhập / Đăng ký */}

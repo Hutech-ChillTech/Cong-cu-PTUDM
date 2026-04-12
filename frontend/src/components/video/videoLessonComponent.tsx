@@ -6,6 +6,7 @@ import {
   type CompleteLessonResponse,
 } from "../../service/progress.service";
 
+
 interface VideoLessonPlayerProps {
   videoUrl: string;
   lessonId?: string;
@@ -20,7 +21,8 @@ const VideoLessonPlayer: React.FC<VideoLessonPlayerProps> = ({
   autoPlay = false,
   onCompleted,
 }) => {
-  const playerRef = useRef<ReactPlayer>(null);
+  const Player = ReactPlayer as any;
+  const playerRef = useRef<any>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -45,7 +47,7 @@ const VideoLessonPlayer: React.FC<VideoLessonPlayerProps> = ({
     if (videoId) {
       return `https://www.youtube.com/embed/${videoId}`;
     }
-    
+
     return trimmed;
   }, [rawVideoUrl]);
 
@@ -156,7 +158,7 @@ const VideoLessonPlayer: React.FC<VideoLessonPlayerProps> = ({
         overflow: "hidden",
       }}
     >
-      <ReactPlayer
+      <Player
         key={videoUrl}
         ref={playerRef}
         url={videoUrl}
@@ -166,7 +168,9 @@ const VideoLessonPlayer: React.FC<VideoLessonPlayerProps> = ({
         controls={true}
         onReady={handleReady}
         onError={handleError}
-        onEnded={handleEnded}
+        onEnded={() => {
+          handleEnded();
+        }}
         style={{
           position: "absolute",
           top: 0,

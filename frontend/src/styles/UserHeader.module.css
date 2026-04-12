@@ -4,13 +4,17 @@
   background: linear-gradient(90deg, #7f7fd5, #86a8e7, #91eae4);
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding-top: 0.25rem;   /* giảm padding trên */
-  padding-bottom: 0.25rem; /* giảm padding dưới */
-  height: auto;           /* cho nó auto căn theo nội dung */
+  padding-top: 0.25rem;
+  /* giảm padding trên */
+  padding-bottom: 0.25rem;
+  /* giảm padding dưới */
+  height: auto;
+  /* cho nó auto căn theo nội dung */
 }
 
 .logo-img {
-  height: 40px;           /* giảm logo nhỏ hơn */
+  height: 55px;
+  /* Tăng kích thước logo */
   width: auto;
   border-radius: 6px;
   object-fit: contain;
@@ -18,8 +22,10 @@
 }
 
 .navbar-brand {
-  padding: 0;             /* loại bỏ padding mặc định */
-  margin-right: 1rem;     /* khoảng cách với menu */
+  padding: 0;
+  /* loại bỏ padding mặc định */
+  margin-right: 1rem;
+  /* khoảng cách với menu */
 }
 
 .nav-link {
@@ -28,8 +34,10 @@
   margin: 0 10px;
   font-weight: 500;
   transition: all 0.3s ease;
-  padding: 0.25rem 0;     /* giảm padding dọc */
-  line-height: 1.2;       /* co gọn dòng chữ */
+  padding: 0.25rem 0;
+  /* giảm padding dọc */
+  line-height: 1.2;
+  /* co gọn dòng chữ */
 }
 
 .nav-link::after {
@@ -50,4 +58,16 @@
 
 .nav-link:hover::after {
   width: 100%;
+}
+
+.active-link {
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+.active-link::after {
+  width: 100% !important;
+  height: 3px !important;
+  background-color: #fff !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
