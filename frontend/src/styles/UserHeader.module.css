@@ -1,53 +1,154 @@
-/* UserHeader.module.css */
+/* UserHeader.module.css - Premium Glassmorphism Style */
 
 .custom-navbar {
-  background: linear-gradient(90deg, #7f7fd5, #86a8e7, #91eae4);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding-top: 0.25rem;   /* giảm padding trên */
-  padding-bottom: 0.25rem; /* giảm padding dưới */
-  height: auto;           /* cho nó auto căn theo nội dung */
+  background: rgba(255, 255, 255, 0.05); /* Rất mờ khi ở top */
+  backdrop-filter: blur(0px);
+  padding: 1rem 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid transparent;
+}
+
+.navbar-scrolled {
+  background: rgba(15, 23, 42, 0.85); /* Deep Navy mờ */
+  backdrop-filter: blur(12px);
+  padding: 0.6rem 0;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-wrapper {
+  background: white;
+  padding: 4px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
 .logo-img {
-  height: 40px;           /* giảm logo nhỏ hơn */
+  height: 32px;
   width: auto;
-  border-radius: 6px;
   object-fit: contain;
-  vertical-align: middle;
-}
-
-.navbar-brand {
-  padding: 0;             /* loại bỏ padding mặc định */
-  margin-right: 1rem;     /* khoảng cách với menu */
 }
 
 .nav-link {
-  position: relative;
-  color: #fff !important;
-  margin: 0 10px;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.8rem !important;
   transition: all 0.3s ease;
-  padding: 0.25rem 0;     /* giảm padding dọc */
-  line-height: 1.2;       /* co gọn dòng chữ */
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+  transform: translateY(-1px);
 }
 
 .nav-link::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: -3px;
+  bottom: 0;
+  left: 50%;
   width: 0;
   height: 2px;
-  background-color: white;
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #000 !important;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+  background: #3b82f6;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .nav-link:hover::after {
-  width: 100%;
+  width: 60%;
+}
+
+.search-icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 1rem;
+}
+
+/* Buttons */
+.btn-login {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-login:hover {
+  color: #3b82f6;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-register {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+  background: #2563eb;
+}
+
+.user-profile-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.user-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive fixes */
+@media (max-width: 991.98px) {
+  .custom-navbar {
+    background: #0f172a !important; /* Luôn tối trên mobile khi mở menu */
+    padding: 1rem !important;
+  }
+  
+  .nav-divider {
+    display: none;
+  }
+  
+  .navbar-nav {
+    padding: 1rem 0;
+  }
 }

@@ -19,17 +19,19 @@ const UserHeader: React.FC = () => {
     userId?: string;
     userName?: string;
   } | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
 
+    const token = localStorage.getItem("token");
     if (token) {
       try {
-        // ✅ Giải mã token
         const decoded = jwtDecode<JWTPayload>(token);
-
-        // ✅ Kiểm tra hạn token
         if (decoded.exp && decoded.exp * 1000 < Date.now()) {
           console.warn("Token đã hết hạn. Đang đăng xuất...");
           handleLogout();
@@ -45,6 +47,7 @@ const UserHeader: React.FC = () => {
         handleLogout();
       }
     }
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = () => {
@@ -57,17 +60,21 @@ const UserHeader: React.FC = () => {
 
   return (
     <nav
-      className={`navbar navbar-expand-lg navbar-dark ${styles["custom-navbar"]} px-4`}
+      className={`navbar navbar-expand-lg fixed-top ${styles["custom-navbar"]} ${
+        scrolled ? styles["navbar-scrolled"] : ""
+      } px-4 transition-all`}
     >
-      <div className="container-fluid">
+      <div className="container">
         {/* Logo */}
         <Link className="navbar-brand d-flex align-items-center" to="/">
-          <img
-            src="/images/SkillCoder_Logo.png"
-            alt="SkillCoder"
-            className={`${styles["logo-img"]} me-2`}
-          />
-          <span className="fw-bold">SkillCoder</span>
+          <div className={styles["logo-wrapper"]}>
+            <img
+              src="/images/SkillCoder_Logo.png"
+              alt="SkillCoder"
+              className={styles["logo-img"]}
+            />
+          </div>
+          <span className={`${styles["brand-text"]} ms-2`}>SkillCoder</span>
         </Link>
 
         {/* Toggle cho mobile */}
@@ -85,100 +92,84 @@ const UserHeader: React.FC = () => {
 
         {/* Menu */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto align-items-center">
+          <ul className="navbar-nav ms-auto align-items-center gap-2">
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/">
+              <Link className={styles["nav-link"]} to="/">
                 Trang chủ
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
-                to="/all-courses"
-              >
+              <Link className={styles["nav-link"]} to="/all-courses">
                 Khóa học
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
-                to="/learningPathMap"
-              >
+              <Link className={styles["nav-link"]} to="/learningPathMap">
                 Lộ trình
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/blogs">
+              <Link className={styles["nav-link"]} to="/blogs">
                 Blog
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${styles["nav-link"]}`} to="/contact">
+              <Link className={styles["nav-link"]} to="/contact">
                 Liên hệ
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
-                to="/gamification"
-              >
-                Bảng xếp hạng
-              </Link>
-            </li>
-            
-            {/* Search Icon */}
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${styles["nav-link"]}`}
-                to="/search"
-                title="Tìm kiếm"
-              >
-                <SearchOutlined style={{ fontSize: 18 }} />
+              <Link className={styles["nav-link"]} to="/gamification">
+                Xếp hạng
               </Link>
             </li>
 
-            {/* Nếu chưa đăng nhập → Hiển thị nút Đăng nhập / Đăng ký */}
+            {/* Search Icon */}
+            <li className="nav-item">
+              <Link
+                className={`${styles["nav-link"]} ${styles["search-icon"]}`}
+                to="/search"
+                title="Tìm kiếm"
+              >
+                <SearchOutlined />
+              </Link>
+            </li>
+
+            <div className={styles["nav-divider"]}></div>
+
+            {/* Auth Buttons */}
             {!user ? (
-              <>
-                <li className="nav-item ms-3">
-                  <Link
-                    to="/login"
-                    className="btn btn-outline-light rounded-pill px-3"
-                    style={{ borderColor: "white" }}
-                  >
+              <div className="d-flex align-items-center gap-2 ms-lg-2">
+                <li className="nav-item">
+                  <Link to="/login" className={styles["btn-login"]}>
                     Đăng nhập
                   </Link>
                 </li>
-                <li className="nav-item ms-2">
-                  <Link
-                    to="/register"
-                    className="btn btn-outline-light rounded-pill px-3"
-                    style={{ borderColor: "white" }}
-                  >
+                <li className="nav-item">
+                  <Link to="/register" className={styles["btn-register"]}>
                     Đăng ký
                   </Link>
                 </li>
-              </>
+              </div>
             ) : (
-              /* Nếu đã đăng nhập → Hiển thị tên người dùng + menu */
-              <li className="nav-item dropdown ms-3">
+              <li className="nav-item dropdown ms-lg-3">
                 <button
-                  className="btn btn-outline-light rounded-pill d-flex align-items-center dropdown-toggle"
+                  className={`${styles["user-profile-btn"]} dropdown-toggle`}
                   data-bs-toggle="dropdown"
-                  style={{ borderColor: "white" }}
                 >
                   <UserOutlined className="me-2" />
-                  {user.userName || user.email}
+                  <span className="d-none d-sm-inline">{user.userName || user.email}</span>
                 </button>
-                <ul className="dropdown-menu dropdown-menu-end">
+                <ul className="dropdown-menu dropdown-menu-end shadow-lg border-0">
                   <li>
-                    <Link className="dropdown-item" to="/profile">
-                      Hồ sơ
+                    <Link className="dropdown-item py-2" to="/profile">
+                      Hồ sơ cá nhân
                     </Link>
                   </li>
+                  <li><hr className="dropdown-divider" /></li>
                   <li>
                     <button
-                      className="dropdown-item text-danger"
+                      className="dropdown-item text-danger py-2"
                       onClick={handleLogout}
                     >
                       Đăng xuất
@@ -193,5 +184,6 @@ const UserHeader: React.FC = () => {
     </nav>
   );
 };
+
 
 export default UserHeader;
