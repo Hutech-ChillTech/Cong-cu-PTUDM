@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { message } from "antd";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import styles from "../styles/RegisterPage.module.css";
 import { authService } from "../service/auth.service";
 
@@ -21,7 +22,9 @@ const RegisterPage: React.FC = () => {
     gender: "MALE",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -76,15 +79,23 @@ const RegisterPage: React.FC = () => {
           />
 
           {/* Mật khẩu */}
-          <input
-            type="password"
-            className={styles["register-input"]}
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="Mật khẩu"
-            required
-          />
+          <div className={styles["password-container"]}>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={styles["register-input"]}
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Mật khẩu"
+              required
+            />
+            <span
+              className={styles["password-toggle"]}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            </span>
+          </div>
 
           {/* 🎓 Level */}
           <select

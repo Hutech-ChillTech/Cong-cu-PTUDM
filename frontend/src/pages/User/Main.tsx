@@ -10,6 +10,7 @@ const Main: React.FC = () => {
   const [popularCourses, setPopularCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   const categories = ["Frontend", "Backend", "Data", "AI", "DevOps"];
 
@@ -19,6 +20,10 @@ const Main: React.FC = () => {
 
   const handleBuyCourse = (courseId: string) => {
     navigate(`/payment?courseId=${courseId}`);
+  };
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 5);
   };
 
   // === 1. Lấy toàn bộ khóa học ===
@@ -47,8 +52,6 @@ const Main: React.FC = () => {
     const fetchPopular = async () => {
       try {
         const res = await courseService.getPopularCourses(5);
-
-        // Data từ service trả về đã là Course[]
         if (res) {
           setPopularCourses(res);
         }
@@ -157,7 +160,7 @@ const Main: React.FC = () => {
         <div className={styles["section-header"]}>
           <h2>Các khóa học tại SkillCoder</h2>
           <Link to="/all-courses" className={styles["view-more-btn"]}>
-            Xem thêm →
+            Xem tất cả →
           </Link>
         </div>
 
@@ -170,58 +173,71 @@ const Main: React.FC = () => {
             Hiện chưa có khóa học nào được đăng.
           </p>
         ) : (
-          <div className={styles["course-grid"]}>
-            {apiCourses.map((course) => (
-              <div className={styles["course-card"]} key={course.courseId}>
-                {course.isEnrolled && (
-                  <div className={styles["enrolled-badge"]}>✓ Đã mua</div>
-                )}
-                <img
-                  src={
-                    course.avatarURL
-                      ? course.avatarURL
-                      : "/images/default-course.jpg"
-                  }
-                  alt={course.courseName}
-                  className={styles["course-img"]}
-                />
-                <div className={styles["course-info"]}>
-                  <h5 className={styles["course-title"]}>
-                    {course.courseName}
-                  </h5>
-                  <p className={styles["course-price"]}>
-                    {course.coursePrice.toLocaleString("vi-VN")}đ
-                  </p>
-                  <p className={styles["course-level"]}>
-                    Trình độ: {course.level}
-                  </p>
-                  <div className={styles["course-buttons"]}>
-                    <button
-                      className={styles["btn-view"]}
-                      onClick={() => handleViewCourse(course.courseId)}
-                    >
-                      Xem
-                    </button>
-                    {course.isEnrolled ? (
+          <>
+            <div className={styles["course-grid"]}>
+              {apiCourses.slice(0, visibleCount).map((course) => (
+                <div className={styles["course-card"]} key={course.courseId}>
+                  {course.isEnrolled && (
+                    <div className={styles["enrolled-badge"]}>✓ Đã mua</div>
+                  )}
+                  <img
+                    src={
+                      course.avatarURL
+                        ? course.avatarURL
+                        : "/images/default-course.jpg"
+                    }
+                    alt={course.courseName}
+                    className={styles["course-img"]}
+                  />
+                  <div className={styles["course-info"]}>
+                    <h5 className={styles["course-title"]}>
+                      {course.courseName}
+                    </h5>
+                    <p className={styles["course-price"]}>
+                      {course.coursePrice.toLocaleString("vi-VN")}đ
+                    </p>
+                    <p className={styles["course-level"]}>
+                      Trình độ: {course.level}
+                    </p>
+                    <div className={styles["course-buttons"]}>
                       <button
-                        className={styles["btn-continue"]}
-                        onClick={() => navigate(`/practice/${course.courseId}`)}
+                        className={styles["btn-view"]}
+                        onClick={() => handleViewCourse(course.courseId)}
                       >
-                        Tiếp tục học
+                        Xem
                       </button>
-                    ) : (
-                      <button
-                        className={styles["btn-buy"]}
-                        onClick={() => handleBuyCourse(course.courseId)}
-                      >
-                        Mua ngay
-                      </button>
-                    )}
+                      {course.isEnrolled ? (
+                        <button
+                          className={styles["btn-continue"]}
+                          onClick={() => navigate(`/practice/${course.courseId}`)}
+                        >
+                          Tiếp tục học
+                        </button>
+                      ) : (
+                        <button
+                          className={styles["btn-buy"]}
+                          onClick={() => handleBuyCourse(course.courseId)}
+                        >
+                          Mua ngay
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {visibleCount < apiCourses.length && (
+              <div className={styles["load-more-container"]}>
+                <button
+                  className={styles["load-more-btn"]}
+                  onClick={handleShowMore}
+                >
+                  Xem thêm các khóa học
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </div>

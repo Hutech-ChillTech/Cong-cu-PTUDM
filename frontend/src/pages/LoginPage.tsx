@@ -1,6 +1,6 @@
 import React, { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleOutlined } from "@ant-design/icons";
+import { GoogleOutlined, EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import styles from "../styles/LoginPage.module.css";
 import { jwtDecode } from "jwt-decode";
 import { signInWithPopup } from "firebase/auth";
@@ -13,8 +13,13 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -66,8 +71,8 @@ const LoginPage: React.FC = () => {
       };
       toast.error(
         err.message ||
-          err.response?.data?.message ||
-          "Email hoặc mật khẩu không đúng!",
+        err.response?.data?.message ||
+        "Email hoặc mật khẩu không đúng!",
       );
     } finally {
       setLoading(false);
@@ -157,14 +162,22 @@ const LoginPage: React.FC = () => {
             required
           />
 
-          <input
-            type="password"
-            className={styles["login-input"]}
-            placeholder="Mật khẩu"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className={styles["password-container"]}>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={styles["login-input"]}
+              placeholder="Mật khẩu"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className={styles["password-toggle"]}
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            </span>
+          </div>
 
           <button type="submit" className={styles["login-button"]}>
             {loading ? "Đang xử lý..." : "Đăng nhập"}

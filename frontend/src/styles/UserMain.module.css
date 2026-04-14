@@ -16,12 +16,10 @@
 
 /* === HERO SECTION === */
 .hero-section {
-  background: linear-gradient(
-    90deg,
-    var(--accent-blue1),
-    var(--accent-blue2),
-    var(--accent-blue3)
-  );
+  background: linear-gradient(90deg,
+      var(--accent-blue1),
+      var(--accent-blue2),
+      var(--accent-blue3));
   background-size: 300% 300%;
   animation: gradientMove 10s ease infinite;
   text-align: center;
@@ -58,9 +56,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -71,6 +71,7 @@
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -81,6 +82,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -123,6 +125,7 @@
     transform: translateY(40px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -176,7 +179,8 @@
   line-height: 1.4;
   margin-bottom: 8px;
   transition: color 0.3s ease;
-  min-height: 48px; /* đảm bảo 2 dòng tiêu đề đều chiều cao */
+  min-height: 48px;
+  /* đảm bảo 2 dòng tiêu đề đều chiều cao */
 }
 
 .blog-card:hover h5 {
@@ -196,10 +200,12 @@
   font-size: 0.95rem;
   margin-bottom: 15px;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* hiển thị 3 dòng */
+  -webkit-line-clamp: 3;
+  /* hiển thị 3 dòng */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 72px; /* đảm bảo đều chiều cao mô tả */
+  min-height: 72px;
+  /* đảm bảo đều chiều cao mô tả */
 }
 
 /* === BUTTON === */
@@ -397,4 +403,34 @@
 .btn-continue:hover {
   background: #059669;
   transform: translateY(-2px);
+}
+
+/* === LOAD MORE === */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.load-more-btn {
+  background: linear-gradient(90deg, var(--accent-blue1), var(--accent-blue2));
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(127, 127, 213, 0.3);
+}
+
+.load-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(127, 127, 213, 0.4);
+  opacity: 0.95;
+}
+
+.load-more-btn:active {
+  transform: translateY(-1px);
 }

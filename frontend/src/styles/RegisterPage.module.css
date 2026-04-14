@@ -13,15 +13,19 @@
   0% {
     background-position: 0% 50%;
   }
+
   25% {
     background-position: 50% 100%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   75% {
     background-position: 50% 0%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -54,6 +58,31 @@
   font-size: 15px;
   transition: 0.3s;
   width: 100%;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container .register-input {
+  padding-right: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 13px;
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #6c63ff;
 }
 
 .register-input:focus,

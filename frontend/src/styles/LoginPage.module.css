@@ -13,15 +13,19 @@
   0% {
     background-position: 0% 50%;
   }
+
   25% {
     background-position: 50% 100%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   75% {
     background-position: 50% 0%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -59,12 +63,39 @@
 
 /* Input Fields */
 .login-input {
+  width: 100%;
   margin-bottom: 18px;
   padding: 12px 14px;
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 15px;
   transition: 0.3s;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container .login-input {
+  padding-right: 45px;
+  /* Space for the icon */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 13px;
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #6c63ff;
 }
 
 .login-input:focus {
@@ -103,8 +134,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* khoảng cách icon và chữ */
-  background-color: #fff; /* nền trắng */
+  gap: 8px;
+  /* khoảng cách icon và chữ */
+  background-color: #fff;
+  /* nền trắng */
   color: #444;
   border: 1px solid #ddd;
   padding: 10px 12px;
@@ -114,13 +147,13 @@
   transition: all 0.3s ease;
   margin-bottom: 15px;
   width: 100%;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .google-button:hover {
   background-color: #f5f5f5;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .google-icon {
