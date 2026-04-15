@@ -1,0 +1,88 @@
+# ========================================
+# PROMETHEUS CONFIGURATION
+# ========================================
+# 
+# File này cấu hình Prometheus để scrape metrics từ Hutech-Edu backend.
+# Prometheus sẽ gọi endpoint /metrics mỗi 15 giây để lấy metrics.
+
+global:
+  # Tần suất scrape metrics (mặc định)
+  scrape_interval: 15s
+  
+  # Tần suất đánh giá rules
+  evaluation_interval: 15s
+  
+  # Timeout cho mỗi scrape
+  scrape_timeout: 10s
+  
+  # Labels được thêm vào tất cả metrics
+  external_labels:
+    monitor: 'hutech-edu-monitor'
+    environment: 'development'
+
+# ========================================
+# SCRAPE CONFIGURATIONS
+# ========================================
+scrape_configs:
+  # ----------------------------------------
+  # Hutech-Edu Backend API
+  # ----------------------------------------
+  - job_name: 'hutech-edu-backend'
+    
+    # Scrape mỗi 10 giây (nhanh hơn default)
+    scrape_interval: 10s
+    
+    # Timeout sau 5 giây
+    scrape_timeout: 5s
+    
+    # Endpoint metrics
+    metrics_path: '/metrics'
+    
+    # Targets
+    static_configs:
+      - targets: 
+          # Windows/Mac với Docker: Dùng host.docker.internal
+          - 'host.docker.internal:3000'
+          
+          # Linux với Docker: Dùng IP của host
+          # - '172.17.0.1:3000'
+          
+          # Nếu không dùng Docker: Dùng localhost
+          # - 'localhost:3000'
+        
+        labels:
+          service: 'backend'
+          app: 'hutech-edu'
+
+  # ----------------------------------------
+  # Prometheus Self-Monitoring
+  # ----------------------------------------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+
+  # ----------------------------------------
+  # Redis Exporter (Optional)
+  # Nếu muốn monitor Redis metrics
+  # ----------------------------------------
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
+  #       labels:
+  #         service: 'redis'
+
+# ========================================
+# ALERTING RULES (Optional)
+# ========================================
+# rule_files:
+#   - 'alerts.yml'
+
+# ========================================
+# ALERTMANAGER CONFIGURATION (Optional)
+# ========================================
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['alertmanager:9093']

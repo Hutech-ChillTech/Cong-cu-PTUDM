@@ -1,0 +1,327 @@
+/* ========== PAGE CONTAINER ========== */
+.pageContainer {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 32px 16px;
+}
+
+.paymentContainer {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ========== BACK BUTTON ========== */
+.backButton {
+    background: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #667eea;
+    cursor: pointer;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.backButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ========== SECTIONS ========== */
+.courseSection,
+.paymentSection,
+.summarySection {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 20px 0;
+}
+
+/* ========== COURSE CARD ========== */
+.courseCard {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.courseImage {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.courseInfo h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 12px 0;
+}
+
+.priceInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.originalPrice {
+    font-size: 1rem;
+    color: #a0aec0;
+    text-decoration: line-through;
+}
+
+.discountBadge {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.finalPrice {
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========== PAYMENT METHODS ========== */
+.paymentMethods {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.paymentMethod {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.paymentMethod:hover {
+    border-color: #667eea;
+    background: #f7fafc;
+}
+
+.paymentMethod.selected {
+    border-color: #667eea;
+    background: linear-gradient(90deg, #e6f2ff 0%, #d6e9ff 100%);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.methodIcon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.methodInfo {
+    flex: 1;
+}
+
+.methodInfo h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 4px 0;
+}
+
+.methodInfo p {
+    font-size: 0.9rem;
+    color: #718096;
+    margin: 0;
+}
+
+.methodCheck {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.paymentMethod.selected .methodCheck {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+    font-weight: 700;
+}
+
+/* ========== SUMMARY ========== */
+.summaryCard {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: #4a5568;
+}
+
+.summaryRow .discount {
+    color: #f5576c;
+    font-weight: 600;
+}
+
+.summaryDivider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 16px 0;
+}
+
+.summaryTotal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.totalAmount {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========== PAY BUTTON ========== */
+.payButton {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.payButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.payButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ========== SECURITY NOTE ========== */
+.securityNote {
+    text-align: center;
+    margin-top: 16px;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* ========== LOADING & ERROR ========== */
+.loadingContainer,
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.loadingContainer p {
+    margin-top: 16px;
+    font-size: 1.1rem;
+}
+
+.errorContainer h2 {
+    margin-bottom: 24px;
+}
+
+.errorContainer button {
+    padding: 12px 32px;
+    background: white;
+    color: #667eea;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: 16px 12px;
+    }
+
+    .courseCard {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .courseImage {
+        width: 100%;
+        height: 200px;
+    }
+
+    .priceInfo {
+        justify-content: center;
+    }
+
+    .sectionTitle {
+        font-size: 1.25rem;
+    }
+
+    .paymentMethod {
+        padding: 16px;
+    }
+
+    .methodIcon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+}

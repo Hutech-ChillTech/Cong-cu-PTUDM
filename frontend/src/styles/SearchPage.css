@@ -1,0 +1,146 @@
+:root {
+  --primary-dark: #2c2c2c;
+  --accent-blue1: #7f7fd5;
+  --accent-blue2: #86a8e7;
+  --accent-blue3: #91eae4;
+  --white: #ffffff;
+}
+
+.search-page-redesign {
+  padding: 40px 24px;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+/* Header */
+.search-header-clean {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.search-header-clean h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 32px;
+  color: #1a1a1a;
+  animation: fadeInDown 0.6s ease;
+}
+
+/* Search Bar */
+.search-bar-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-bar-container .ant-input-search {
+  border-radius: 50px;
+}
+
+.search-bar-container .ant-input-search-button {
+  border-radius: 0 50px 50px 0;
+  background: linear-gradient(90deg, var(--accent-blue1), var(--accent-blue2));
+  border: none;
+  font-weight: 600;
+}
+
+.search-bar-container .ant-input-search-button:hover {
+  background: linear-gradient(90deg, var(--accent-blue2), var(--accent-blue1));
+}
+
+.search-bar-container .ant-input-affix-wrapper {
+  border-radius: 50px 0 0 50px;
+  padding: 12px 24px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.search-bar-container .ant-input-affix-wrapper:focus,
+.search-bar-container .ant-input-affix-wrapper-focused {
+  border-color: var(--accent-blue1);
+  box-shadow: 0 0 0 3px rgba(127, 127, 213, 0.1);
+}
+
+/* Tags */
+.search-bar-container .ant-tag {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.search-bar-container .ant-tag:hover {
+  transform: translateY(-2px);
+}
+
+/* Result Cards */
+.result-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.result-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  border-color: var(--accent-blue1);
+}
+
+.result-card .ant-card-body {
+  padding: 20px;
+}
+
+.result-card h4 {
+  margin-bottom: 8px;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-page-redesign {
+    padding: 24px 16px;
+  }
+
+  .search-header-clean h2 {
+    font-size: 2rem;
+  }
+
+  .result-card .ant-space {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .result-card .ant-avatar {
+    margin-bottom: 12px;
+  }
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
