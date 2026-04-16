@@ -77,7 +77,11 @@ const Main: React.FC = () => {
       {/* === CATEGORY BUTTONS === */}
       <div className={styles["category-list"]}>
         {categories.map((cat, index) => (
-          <button className={styles["category-btn"]} key={index}>
+          <button
+            className={styles["category-btn"]}
+            key={index}
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
             {cat}
           </button>
         ))}
@@ -92,10 +96,12 @@ const Main: React.FC = () => {
           </Link>
         </div>
 
-        {popularCourses.length === 0 ? (
-          <p className="text-center text-muted">
-            Chưa có khóa học nổi bật nào.
-          </p>
+        {apiCourses.length === 0 && !loading ? (
+          <div className={styles["no-courses"]}>
+            <p className="text-center text-muted">
+              Chưa có khóa học nổi bật nào.
+            </p>
+          </div>
         ) : (
           <div className={styles["course-grid"]}>
             {popularCourses.map((course) => (
@@ -103,19 +109,19 @@ const Main: React.FC = () => {
                 {course.isEnrolled && (
                   <div className={styles["enrolled-badge"]}>✓ Đã mua</div>
                 )}
-                <img
-                  src={
-                    course.avatarURL
-                      ? course.avatarURL
-                      : "/images/default-course.jpg"
-                  }
-                  alt={course.courseName}
-                  className={styles["course-img"]}
-                />
+                <div className={styles["course-img-wrapper"]}>
+                  <img
+                    src={
+                      course.avatarURL
+                        ? course.avatarURL
+                        : "/images/default-course.jpg"
+                    }
+                    alt={course.courseName}
+                    className={styles["course-img"]}
+                  />
+                </div>
                 <div className={styles["course-info"]}>
-                  <h5 className={styles["course-title"]}>
-                    {course.courseName}
-                  </h5>
+                  <h5 className={styles["course-title"]}>{course.courseName}</h5>
                   <p className={styles["course-price"]}>
                     {course.coursePrice.toLocaleString("vi-VN")}đ
                   </p>
@@ -162,9 +168,14 @@ const Main: React.FC = () => {
         </div>
 
         {loading ? (
-          <p className="text-center text-muted">Đang tải dữ liệu...</p>
+          <div className={styles["loading-container"]}>
+            <div className={styles["spinner"]}></div>
+            <p className="text-muted">Đang tải dữ liệu...</p>
+          </div>
         ) : error ? (
-          <p className="text-center text-danger">{error}</p>
+          <div className="alert alert-danger text-center mx-auto" style={{ maxWidth: "500px" }}>
+            {error}
+          </div>
         ) : apiCourses.length === 0 ? (
           <p className="text-center text-muted">
             Hiện chưa có khóa học nào được đăng.
@@ -176,19 +187,19 @@ const Main: React.FC = () => {
                 {course.isEnrolled && (
                   <div className={styles["enrolled-badge"]}>✓ Đã mua</div>
                 )}
-                <img
-                  src={
-                    course.avatarURL
-                      ? course.avatarURL
-                      : "/images/default-course.jpg"
-                  }
-                  alt={course.courseName}
-                  className={styles["course-img"]}
-                />
+                <div className={styles["course-img-wrapper"]}>
+                  <img
+                    src={
+                      course.avatarURL
+                        ? course.avatarURL
+                        : "/images/default-course.jpg"
+                    }
+                    alt={course.courseName}
+                    className={styles["course-img"]}
+                  />
+                </div>
                 <div className={styles["course-info"]}>
-                  <h5 className={styles["course-title"]}>
-                    {course.courseName}
-                  </h5>
+                  <h5 className={styles["course-title"]}>{course.courseName}</h5>
                   <p className={styles["course-price"]}>
                     {course.coursePrice.toLocaleString("vi-VN")}đ
                   </p>
